@@ -1,0 +1,281 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lobster&display=swap");
+nav li.nav-item {
+  margin-left: 20px;
+}
+
+nav button {
+  font-family: 'Lobster', cursive;
+}
+
+nav .LogInButton {
+  font-family: 'Lobster', cursive;
+}
+
+nav a.navbar-brand {
+  font-family: 'Righteous', cursive;
+}
+
+nav a.nav-link {
+  font-size: 20px;
+  font-family: 'Lobster', cursive;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 3px 5px;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+nav a.nav-link:first-child {
+  margin-left: 20px;
+}
+
+ul.Sort {
+  padding: 0;
+  list-style-type: none;
+}
+
+ul.Sort p {
+  margin-top: 5px;
+  text-align: center;
+  font-family: 'Lobster', cursive;
+  font-size: 18px;
+  color: white;
+}
+
+ul.Sort li {
+  text-align: center;
+}
+
+ul.Sort li a {
+  font-size: 14px;
+  font-family: 'Righteous', cursive;
+  color: white;
+}
+
+.bgStars {
+  background: url("/images/bg6.jpg");
+  background-size: cover;
+}
+
+div.card {
+  height: 100%;
+  width: auto;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 10px 5px;
+}
+
+div.card .Image {
+  position: relative;
+}
+
+div.card .Image a.imageReference img:hover {
+  opacity: 0.8;
+}
+
+div.card .Image a.imageReference:hover + .ButtonBlock {
+  opacity: 1;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+div.card .Image .ButtonBlock {
+  opacity: 0;
+}
+
+div.card .Image .ButtonBlock:hover {
+  opacity: 1;
+}
+
+div.card .Image .ButtonBlock a.downloadButton {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -50px;
+}
+
+div.card .Image .ButtonBlock a.downloadButton:last-child {
+  margin-left: 0;
+}
+
+div.card .Image .ButtonBlock a.downloadButton img {
+  width: 50px;
+  height: 50px;
+}
+
+div.card .Image .ButtonBlock a.downloadButton:hover {
+  opacity: 1;
+  padding: 2px;
+}
+
+div.card .card-title {
+  font-family: 'Lobster', cursive;
+}
+
+div.card p.card-text {
+  font-family: 'Righteous', cursive;
+}
+
+div.card p.card-text span {
+  font-family: 'Lobster', cursive;
+  font-size: 16px;
+}
+
+div.card p.card-text a {
+  color: #212529;
+  font-style: italic;
+}
+
+@media (max-width: 992px) {
+  ul.Sort p {
+    font-size: 14px;
+  }
+  ul.Sort li a {
+    font-size: 12px;
+  }
+  nav .LogInButton {
+    margin-left: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .rose {
+    display: none;
+  }
+  ul.Sort p {
+    font-size: 18px;
+  }
+  ul.Sort li a {
+    font-size: 16px;
+  }
+  nav .LogInButton {
+    margin-left: 20px;
+  }
+  .card .Image div.ButtonBlock {
+    opacity: 1;
+  }
+  .card .Image div.ButtonBlock a.downloadButton {
+    left: 100%;
+    top: 0;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  .card .Image div.ButtonBlock a.downloadButton:first-child {
+    margin-left: -100px;
+  }
+  .card .Image div.ButtonBlock a.downloadButton:last-child {
+    margin-left: -50px;
+  }
+  .ComposerImage {
+    text-align: center;
+  }
+}
+
+p.a {
+  text-align: center;
+  color: white;
+  background-color: #343a40;
+  width: 100%;
+  font-style: italic;
+}
+
+p.b {
+  text-align: center;
+  color: black;
+}
+
+p.c {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+p.Composer {
+  font-family: 'Righteous', cursive;
+}
+
+p.Composer span {
+  font-family: 'Lobster', cursive;
+  font-weight: bold;
+}
+
+ul.Composers {
+  list-style-type: decimal;
+}
+
+ul.Composers li > a {
+  font-family: 'Lobster', cursive;
+  font-size: 18px;
+}
+
+p.q {
+  text-align: center;
+  color: white;
+}
+
+p.q a {
+  color: white;
+}
+
+form.Login-Registration label {
+  font-size: 18px;
+  font-family: 'Lobster', cursive;
+}
+
+form.Login-Registration input::-webkit-input-placeholder {
+  font-family: 'Righteous', cursive;
+}
+
+form.Login-Registration input:-ms-input-placeholder {
+  font-family: 'Righteous', cursive;
+}
+
+form.Login-Registration input::-ms-input-placeholder {
+  font-family: 'Righteous', cursive;
+}
+
+form.Login-Registration input::placeholder {
+  font-family: 'Righteous', cursive;
+}
+
+footer .form-row {
+  height: 62px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+footer p {
+  color: white;
+  font-family: 'Righteous', cursive;
+  margin-bottom: 0;
+}
+
+a.ReturnButton {
+  opacity: 0.8;
+  z-index: 1;
+}
+
+a.ReturnButton img {
+  width: 30%;
+  border-radius: 50%;
+}
+
+#toTop {
+  border-radius: 50%;
+  text-align: center;
+  padding: 5px;
+  position: fixed;
+  bottom: 10px;
+  /* отступ кнопки от нижнего края страницы*/
+  right: 10px;
+  margin-right: -2.5rem;
+  cursor: pointer;
+  display: none;
+  color: #333;
+  font-family: verdana;
+  font-size: 11px;
+}
