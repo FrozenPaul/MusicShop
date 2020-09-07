@@ -44,30 +44,25 @@
 
 @section('content')
     <div class="col-sm-8 bg-light">
-        <h1 class="text-center">{{$author->name}}</h1>
-        <div class="form-row">
-            <div class="col-md-4 ComposerImage">
-                <a href="{{asset($author->picture_path)}}" data-fancybox="gallery">
-                    <img src="{{ asset($author->picture_path) }}" class="img-fluid">
-                </a>
+        <h1>
+            <p class="text-center">Регистрация</p>
+        </h1>
+        <form class="Login-Registration">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Введите E-mail</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       placeholder="E-mail" required>
             </div>
-            <div class="col-md ml-1">
-                <p class="Composer">
-                    <span>Полное имя:</span> {{$author->name}}</br>
-                    <span>Дата рождения:</span> {{$author->date_of_birth}} </br>
-                    <span>Место рождения:</span> {{$author->sity_of_birth}}</br>
-                    <span>Дата смерти:</span> {{$author->date_of_death}}</br>
-                    <span>Место смерти:</span> {{$author->place_of_death}}</br>
-                    <span>Похоронен:</span>{{$author->buried}} </br>
-                    <span>Профессии:</span> {{$author->jobs}}</br>
-                    <span>Инструменты:</span> {{$author->instruments}} </br>
-                    <span>Жанры:</span> {{$author->genres}}</br>
-                    <span>Награды:</span> {{$author->rewards}}</br>
-                </p>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Введите пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль" required>
             </div>
-        </div>
-        <p class="Composer">
-            &nbsp&nbsp&nbsp&nbsp{{ $author->description}}
-        </p>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Подтвердите пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль" required>
+            </div>
+            <input type="submit" class="btn btn-dark" value="Сохранить">
+            <a href="{{route('login')}}" class="btn btn-dark my-2 my-sm-1 ml ">На страницу авторизации</a>
+        </form>
     </div>
 @endsection

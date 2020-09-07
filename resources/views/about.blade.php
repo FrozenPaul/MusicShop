@@ -32,7 +32,7 @@
                 </ul>
                 <ul class="navbar-nav pull-right">
                     <li class="nav-item">
-                        <a href="logIn.html" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
+                        <a href="{{route('login')}}" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
                     </li>
 
                 </ul>
@@ -43,14 +43,14 @@
 @endsection
 
 @section('content')
-    <div style="display: block">
-    <h1 class="text-center">О нас</h1>
+    <div class="col-sm-8 bg-light">
+        <h1 class="text-center">О нас</h1>
 
-    <p class="Composer">
-        Сайт создан для музыкантов, а также для людей, любящих хорошую музыку. <br />
-        Будьте вежливы, оставляйте комментарии, будем рады конструктивной критике. <br />
-        Сайт создан для некоммерческого использования.<br />
-    </p>
+        <p class="Composer">
+            Сайт создан для музыкантов, а также для людей, любящих хорошую музыку. <br />
+            Будьте вежливы, оставляйте комментарии, будем рады конструктивной критике. <br />
+            Сайт создан для некоммерческого использования.<br />
+        </p>
     </div>
 
 @endsection

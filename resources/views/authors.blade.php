@@ -32,7 +32,7 @@
                 </ul>
                 <ul class="navbar-nav pull-right">
                     <li class="nav-item">
-                        <a href="logIn.html" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
+                        <a href="{{route('login')}}" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
                     </li>
 
                 </ul>
@@ -45,21 +45,28 @@
 
 
 @section('content')
-    <div style="display: block">
-    <h1 class="text-center py-3">Композиторы</h1>
+    <div class="col-sm-8 bg-light" style="display: flex; justify-content: space-around">
+        <div style="display: block">
+            <h1 class="text-center py-3">Композиторы</h1>
 
-    <form class="form-inline my-2 my-lg-0 ml-4">
-        <input class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск">
-        <button class="btn btn-outline-dark my-2 my-sm-1" type="submit">Поиск</button>
-    </form>
-    <h2 class="py-3">Список композиторов:</h2>
+            <form method="post" class="form-inline my-2 my-lg-0 ml-4" action="{{route('findAuthor')}}">
+                @csrf
+                <input name="author_name" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                <button class="btn btn-outline-dark my-2 my-sm-1" type="submit">Поиск</button>
+            </form>
+            <h2 class="py-3">Список композиторов:</h2>
 
-    <ul class="Composers">
+            <ul class="Composers">
+                @if(count($authors))
 
-    @foreach ($authors as $author)
-            <li><a href="{{route('author', $author->id)}}">{{ $author->name }}</a></li>
-    @endforeach
-    </ul>
+                    @foreach ($authors as $author)
+                        <li><a href="{{route('author', $author->id)}}">{{ $author->name }}</a></li>
+                    @endforeach
+                @else
+                    <li>По вашему запросу ничего не найдено</li>
+                @endif
+            </ul>
+        </div>
     </div>
 
 

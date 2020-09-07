@@ -42,13 +42,15 @@
 
             </div>
 
-            <div class="col-md-8  bg-light" style="display: flex; justify-content: space-around;">
+{{--            <div class="col-md-8  bg-light" style="display: flex; justify-content: space-around;">--}}
 
-                    @yield('content')
+                @yield('content')
 
 
+{{--            </div>--}}
+            <div class="col-md-2 ">
+                @yield('administration')
             </div>
-            <div class="col-md-2 "></div>
         </div>
     </div>
 

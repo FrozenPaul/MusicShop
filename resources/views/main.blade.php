@@ -15,8 +15,9 @@
                     <div id="my-nav" class="collapse navbar-collapse" style="justify-content: space-between;">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <form class="form-inline my-2 my-lg-0 ml-4">
-                                    <input class="form-control mr-sm-2" type="search" placeholder="Поиск"
+                                <form method="post" action="{{route('search_music')}}" class="form-inline my-2 my-lg-0 ml-4">
+                                    @csrf
+                                    <input name="music_name" class="form-control mr-sm-2" type="search" placeholder="Поиск"
                                         aria-label="Поиск">
                                     <button class="btn btn-outline-light my-2 my-sm-1" type="submit">Поиск</button>
                                 </form>
@@ -32,7 +33,7 @@
                         </ul>
                         <ul class="navbar-nav pull-right">
                             <li class="nav-item">
-                                <a href="logIn.html" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
+                                <a href="{{route('login')}}" class="btn btn-outline-light my-2 my-sm-1 ml LogInButton">Войти</a>
                             </li>
 
                         </ul>
@@ -59,131 +60,82 @@
 
                 <ul class="Sort">
                     <p>
+                        Сортировка по жанру:
+                    </p>
+                    @if(isset($genres))
+                        @foreach($genres as $genre)
+                            <li><a href="{{route('search_music_by_genre',$genre->id)}}">{{$genre->name}}</a></li>
+                        @endforeach
+                    @endif
+
+                </ul>
+
+                <ul class="Sort">
+                    <p>
                         Сортировка по инструменту:
                     </p>
-                    <li><a href="#">Фортепиано</a></li>
-                    <li><a href="#">Гитара</a></li>
-                    <li><a href="#">Скрипка</a></li>
+                    @if(isset($instruments))
+                        @foreach($instruments as $instrument)
+                            <li><a href="#">{{$instrument->name}}</a></li>
+                        @endforeach
+                    @endif
+
                 </ul>
 
 @endsection
 
 @section('content')
-    <div class="form-row" style="padding: 1rem;">
+    <div class="col-md-8  bg-light" style="display: flex; justify-content: space-around;">
+        <div class="form-row" style="padding: 1rem;">
+            <div class="row" style="justify-content: space-around;">
 
-                    <div class="col-lg-4 col-md-6 bg-light" style="margin-bottom: 20px;">
-                        <div class="card">
-                            <div class="Image">
-                                <a class="imageReference" href="images/prelude in G minor rachmaninoff.jpg"
-                                    data-fancybox="gallery">
-                                    <img src="images/prelude in G minor rachmaninoff.jpg" class="img-fluid" alt="...">
+                @foreach($music_tracks as $music_track)
+                    <div class="card">
+                        <div class="Image">
+                            <a class="imageReference" href="{{$music_track->picture_path}}" data-fancybox="gallery">
+                                <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
+                            </a>
+                            <div class="ButtonBlock">
+                                <a href="" class="downloadButton">
+                                    <img src="/images/download-icon.png" alt="">
                                 </a>
-                                <div class="ButtonBlock">
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/download-icon.png" alt="">
-                                    </a>
-                                    <a href="/musicInformation.html" class="downloadButton">
-                                        <img src="/images/Eye.png " alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="musicInformation.html">Prelude in G minor</a></h5>
-                                <p class="card-text">
-                                    <span>Автор:</span> <a href="composer.html">Сергей Васильевич Рахманинов</a></br>
-                                    <span>Инструмент:</span> фортепиано, рояль </br>
-                                    <span>Скачать:</span>
-                                </p>
+                                <a href="" class="downloadButton">
+                                    <img src="/images/Eye.png " alt="">
+                                </a>
                             </div>
 
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" style="margin-bottom: 20px;">
-                        <div class="card">
-                            <div class="Image">
-                                <a class="imageReference" href="images/glassySky.png" data-fancybox="gallery">
-                                    <img src="images/glassySky.png" class="img-fluid" alt="...">
-                                </a>
-                                <div class="ButtonBlock">
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/download-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/Eye.png " alt="">
-                                    </a>
-                                </div>
-
-                            </div>
-                            <div class="card-body">
-                                <a href="#">
-                                    <h5 class="card-title">Glassy Sky</h5>
-                                </a>
-                                <p class="card-text">
-                                    <span>Автор:</span> <a href="">Ytaka Yamada</a></br>
-                                    <span>Инструмент:</span> фортепиано, рояль </br>
-                                    <span>Скачать:</span>
-                                </p>
-                            </div>
-
+                        <div class="card-body">
+                            <a href="#">
+                                <h5 class="card-title">{{$music_track->name}}</h5>
+                            </a>
+                            <p class="card-text">
+                                <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
+                                    {{\App\Author::find($music_track->author_id)->name}}
+                                </a></br>
+                                <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
+                                <button type="button" class="btn btn-success mt-3">Скачать</button>
+                            </p>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6" style="margin-bottom: 20px;">
-                        <div class="card">
-                            <div class="Image">
-                                <a class="imageReference" href="images/Departures.png" data-fancybox="gallery">
-                                    <img src="images/Departures.png" class="img-fluid" alt="...">
-                                </a>
-                                <div class="ButtonBlock">
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/download-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/Eye.png " alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="#">
-                                    <h5 class="card-title">Departures</h5>
-                                </a>
-                                <p class="card-text">
-                                    <span>Автор:</span> <a href="composer.html">arranged by Animenz</a></br>
-                                    <span>Инструмент:</span> фортепиано, рояль </br>
-                                    <span>Скачать:</span>
-                                </p>
-                            </div>
 
-                        </div>
                     </div>
-                    <div class="col-lg-4 col-md-6" style="margin-bottom: 20px;">
-                        <div class="card">
-                            <div class="Image">
-                                <a class="imageReference" href="images/Departures.png" data-fancybox="gallery">
-                                    <img src="images/Departures.png" class="img-fluid" alt="...">
-                                </a>
-                                <div class="ButtonBlock">
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/download-icon.png" alt="">
-                                    </a>
-                                    <a href="" class="downloadButton">
-                                        <img src="/images/Eye.png " alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <a href="#">
-                                    <h5 class="card-title">Departures</h5>
-                                </a>
-                                <p class="card-text">
-                                    <span>Автор:</span> <a href="composer.html">arranged by Animenz</a></br>
-                                    <span>Инструмент:</span> фортепиано, рояль </br>
-                                    <span>Скачать:</span>
-                                </p>
-                            </div>
+                @endforeach
 
-                        </div>
-                    </div>
+            </div>
+{{--                {{$music_tracks->links()}}--}}
+        </div>
+    </div>
+@endsection
+
+@section('administration')
+    <div class="Administration pt-1">
+        <p>
+            Администрирование:
+        </p>
+        <ul style="color: white ">
+            <li><a href="">Пользователи</a></li>
+            <li><a href="">Треки</a></li>
+            <li><a href="">Композиторы</a></li>
+        </ul>
     </div>
 @endsection
