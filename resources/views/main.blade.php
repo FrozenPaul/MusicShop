@@ -76,7 +76,7 @@
                     </p>
                     @if(isset($instruments))
                         @foreach($instruments as $instrument)
-                            <li><a href="#">{{$instrument->name}}</a></li>
+                            <li><a href="{{route('search_music_by_instrument', $instrument->id)}}">{{$instrument->name}}</a></li>
                         @endforeach
                     @endif
 
@@ -96,7 +96,7 @@
                                 <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
                             </a>
                             <div class="ButtonBlock">
-                                <a href="" class="downloadButton">
+                                <a href="" class="downloadButton imageReference" data-fancybox="gallery" >
                                     <img src="/images/download-icon.png" alt="">
                                 </a>
                                 <a href="" class="downloadButton">
@@ -106,7 +106,7 @@
 
                         </div>
                         <div class="card-body">
-                            <a href="#">
+                            <a href="{{route('single_track', $music_track->id)}}">
                                 <h5 class="card-title">{{$music_track->name}}</h5>
                             </a>
                             <p class="card-text">
@@ -133,9 +133,9 @@
             Администрирование:
         </p>
         <ul style="color: white ">
-            <li><a href="">Пользователи</a></li>
+            <li><a href="{{route('users')}}">Пользователи</a></li>
             <li><a href="">Треки</a></li>
-            <li><a href="">Композиторы</a></li>
+            <li><a href="{{route('authors_all')}}">Композиторы</a></li>
         </ul>
     </div>
 @endsection

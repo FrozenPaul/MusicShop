@@ -50,3 +50,22 @@ Route::post('/search','MainController@getAllMusicByName')
 Route::get('/search/genre/{genre_id}', 'MainController@getAllMusicByGenre')
     ->name('search_music_by_genre');
 
+Route::get('/search/instrument/{instrument_id}', 'MainController@getAllMusicByInstrument')
+    ->name('search_music_by_instrument');
+
+Route::get('/music_tracks/{id}', 'Music_trackController@getSingleTrack')
+    ->name('single_track');
+
+Route::get('/users/all/{id}','UserController@getUser')->name('user_show');
+
+Route::post('/users/all/{id}/edit','UserController@editUserByAdmin')->name('user_edit');
+
+Route::get('/users/all/{id}/delete','UserController@deleteUser')->name('user_delete');
+
+Route::get('/allAuthors','AuthorController@getAllAuthorsForAdmin')->name('authors_all');
+
+Route::get('/allAuthors/add','AuthorController@addAuthor')->name('add_author');
+
+Route::post('/allAuthors/add', 'AuthorController@saveAuthor')->name('save_author');
+
+

@@ -18,7 +18,7 @@ class CreateAuthorsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->integer('age');
-            $table->string('sity_of_birth');
+            $table->string('sity_of_birth')->nullable();
             $table->string('date_of_birth');
             $table->string('date_of_death');
             $table->string('place_of_death');
@@ -42,6 +42,6 @@ class CreateAuthorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authors');
+        Schema::dropIfExists('authors_admin');
     }
 }

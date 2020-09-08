@@ -38,4 +38,13 @@ class MainController extends Controller
 //                ->orderBy('name')->paginate(6),
         ]);
     }
+
+    public function getAllMusicByInstrument($id){
+        return view('main', [
+            'genres' => Genre::all()->sortBy('name'),
+            'instruments' => Instrument::all()->sortBy('name'),
+            'music_tracks' => Music_track::where('instrument_id', $id)
+                ->orderBy('name')->get(),
+        ]);
+    }
 }
