@@ -56,16 +56,39 @@ Route::get('/search/instrument/{instrument_id}', 'MainController@getAllMusicByIn
 Route::get('/music_tracks/{id}', 'Music_trackController@getSingleTrack')
     ->name('single_track');
 
-Route::get('/users/all/{id}','UserController@getUser')->name('user_show');
+Route::get('/users/all/{id}','UserController@getUser')
+    ->name('user_show');
 
-Route::post('/users/all/{id}/edit','UserController@editUserByAdmin')->name('user_edit');
+Route::post('/users/all/{id}/edit','UserController@editUserByAdmin')
+    ->name('user_edit');
 
-Route::get('/users/all/{id}/delete','UserController@deleteUser')->name('user_delete');
+Route::get('/users/all/{id}/delete','UserController@deleteUser')
+    ->name('user_delete');
 
-Route::get('/allAuthors','AuthorController@getAllAuthorsForAdmin')->name('authors_all');
+Route::get('/allAuthors','AuthorController@getAllAuthorsForAdmin')
+    ->name('authors_all');
 
-Route::get('/allAuthors/add','AuthorController@addAuthor')->name('add_author');
+Route::get('/allAuthors/add','AuthorController@addAuthor')
+    ->name('add_author');
 
-Route::post('/allAuthors/add', 'AuthorController@saveAuthor')->name('save_author');
+Route::post('/allAuthors/add', 'AuthorController@saveAuthor')
+    ->name('save_author');
 
+//download music_track
+
+Route::get('/download/{download_link}','Music_trackController@download')
+    ->name('download');
+
+// delete author
+
+Route::get('/allAuthors/delete/{id}','AuthorController@delete')
+    ->name('delete_author');
+
+// edit author
+
+Route::get('allAuthors/edit/{id}', 'AuthorController@editAuthor')
+    ->name('edit_author');
+
+Route::post('allAuthors/edit/{id}/update','AuthorController@updateAuthor')
+    ->name('update_author');
 

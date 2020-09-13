@@ -101,7 +101,7 @@
 {{--                    <span>Количество страниц:</span> 6 </br>--}}
                     <span>Сложность:</span> {{$music_track->complexity}} </br>
                     <span>Рейтинг:</span> {{$music_track->rating}} </br>
-                    <button class="btn btn-success my-2">Скачать:</button>
+                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
 {{--                    <span>Ссылки на выдающееся исполнение:</span> </br>--}}
                 </p>
             </div>

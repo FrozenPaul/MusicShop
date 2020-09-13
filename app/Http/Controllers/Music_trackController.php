@@ -16,4 +16,11 @@ class Music_trackController extends Controller
             'music_track' => Music_track::find($id),
         ]);
     }
+
+    function download($id){
+        $track = Music_track::find($id);
+//        return $track->notes_path;
+        return response()->download($track->notes_path);
+//        return response()->download('pdfs/Prelude_in_G_Minor_Op._23_No._5.pdf');
+    }
 }

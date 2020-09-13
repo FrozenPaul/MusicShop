@@ -30,7 +30,7 @@ class Music_trackSeeder extends Seeder
             'rating' => 4.9,
             'description' => 'Прелюдия соль минор , соч. 23, № 5, - это музыкальное произведение Сергея Рахманинова , завершенное в 1901 году. [1] Оно было включено в егонабор из десяти прелюдий Opus 23 , несмотря на то, что был написан на два года раньше, чем остальные девять. Сам Рахманинов впервые представил это произведение в Москве 10 февраля 1903 года вместе с прелюдиями № 1 и 2 из соч. 23.',
             'link' => 'https://www.youtube.com/embed/SlcQWUn5DeI',
-            'notes_path' => '/pdfs/Prelude_in_G_Minor_Op._23_No._5',
+            'notes_path' => '/pdfs/Prelude_in_G_Minor_Op._23_No._5.pdf',
             'picture_path' => '/images/prelude in G minor rachmaninoff.jpg',
             'created_at' => \Carbon\Carbon::now(),
         ]);
@@ -48,7 +48,7 @@ class Music_trackSeeder extends Seeder
                 'description' => $faker->text,
                 'link' => $faker->word,
                 'notes_path' => $faker->word,
-                'picture_path' => $faker->imageUrl(640, 480),
+                'picture_path' => $faker->imageUrl(250, 300),
                 'created_at' => \Carbon\Carbon::now(),
             ]);
         }

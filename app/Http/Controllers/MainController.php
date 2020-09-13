@@ -47,4 +47,8 @@ class MainController extends Controller
                 ->orderBy('name')->get(),
         ]);
     }
+
+//    public function download($download_link){
+//        return response()->download($download_link);
+//    }
 }

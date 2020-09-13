@@ -96,10 +96,10 @@
                                 <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
                             </a>
                             <div class="ButtonBlock">
-                                <a href="" class="downloadButton imageReference" data-fancybox="gallery" >
+                                <a href="{{route('download',$music_track->id)}}" class="downloadButton imageReference" >
                                     <img src="/images/download-icon.png" alt="">
                                 </a>
-                                <a href="" class="downloadButton">
+                                <a href="{{route('single_track', $music_track->id)}}" class="downloadButton">
                                     <img src="/images/Eye.png " alt="">
                                 </a>
                             </div>
@@ -114,7 +114,13 @@
                                     {{\App\Author::find($music_track->author_id)->name}}
                                 </a></br>
                                 <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
-                                <button type="button" class="btn btn-success mt-3">Скачать</button>
+
+{{--                                <form method="get" action="{{route('download',$music_track->id)}}">--}}
+{{--                                    <input name="download_link" type="hidden" value="{{$music_track->notes_path}}">--}}
+{{--                                    <button type="button" class="btn btn-success mt-3">Скачать</button>--}}
+                                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
+{{--                                </form>--}}
+
                             </p>
                         </div>
 
