@@ -14,6 +14,7 @@ use function GuzzleHttp\Promise\all;
 
 class AuthorController extends Controller
 {
+
     public function getAllAuthors(){
         return view('authors',['authors' => Author::all()->sortBy('name')]);
     }
@@ -99,9 +100,11 @@ class AuthorController extends Controller
         $author->genres = $req->input('genres');
         $author->instruments = $req->input('instruments');
         $author->rewards = $req->input('rewards');
-        $req->picture_path->storeAs('logos', $req->picture_path->getClientOriginalName());
-        Storage::delete(mb_strcut($author->picture_path,8));
-        $author->picture_path = 'storage/logos/'.$req->picture_path->getClientOriginalName();
+        if (!empty($req->picture_path)){
+            $req->picture_path->storeAs('logos', $req->picture_path->getClientOriginalName());
+            Storage::delete(mb_strcut($author->picture_path,8));
+            $author->picture_path = 'storage/logos/'.$req->picture_path->getClientOriginalName();
+        }
         $author->created_at = Carbon::now();
         $author->description = $req->description;
 

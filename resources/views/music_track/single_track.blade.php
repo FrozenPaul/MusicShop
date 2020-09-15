@@ -123,7 +123,37 @@
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
         </div>
-        <h3>Комментарии: (0)</h3>
+        <h3>Комментарии: ( {{isset($comments)? count($comments) : 0}} )</h3>
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <div class="text-center">
+                <form style="height: 90px" action="{{route('add_comment',$music_track->id)}}" method="post">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{\Illuminate\Support\Facades\Auth::id()}}">
+                    <textarea style="width: 80%" name="comment" rows="3"></textarea>
+                    <button class="btn btn-success" style="height: 78px; margin-bottom: 69px;" type="submit">Добавить</button>
+                </form>
+            </div>
+        @endif
+        @if(isset($comments))
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Пользователь</th>
+                    <th scope="col">Комментарий</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($comments as $comment)
+                        <tr>
+                            <th scope="row">{{$comment->id}}</th>
+                            <td>{{\App\User::find($comment->user_id)->name}}</td>
+                            <td>{{$comment->text}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
 
     </div>
 @endsection

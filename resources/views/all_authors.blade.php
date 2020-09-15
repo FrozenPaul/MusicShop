@@ -104,7 +104,7 @@
                 @foreach($authors as $author)
                     <tr>
                         <th scope="row">{{$author->id}}</th>
-                        <td>{{$author->name}}</td>
+                        <td><a href="{{route('author',$author->id)}}"> {{$author->name}}</a></td>
                         <td><a href="{{{route('edit_author',$author->id)}}}" class="btn btn-info" style="color: white">Редактировать</a></td>
                         <td><a href="{{route('delete_author',$author->id)}}" class="btn btn-danger"style="color: white">Удалить</a></td>
                     </tr>

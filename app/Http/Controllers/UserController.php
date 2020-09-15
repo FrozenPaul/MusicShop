@@ -6,6 +6,7 @@ use App\Genre;
 use App\Instrument;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -40,5 +41,10 @@ class UserController extends Controller
         $user = User::find($id);
         $user->delete();
         return redirect()->route('users');
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('main');
     }
 }

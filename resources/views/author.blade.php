@@ -65,6 +65,10 @@
                     <span>Жанры:</span> {{$author->genres}}</br>
                     <span>Награды:</span> {{$author->rewards}}</br>
                 </p>
+
+                @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)
+                    <a href="{{{route('edit_author',$author->id)}}}" class="btn btn-info" style="color: white">Редактировать</a>
+                @endif
             </div>
         </div>
         <p class="Composer">

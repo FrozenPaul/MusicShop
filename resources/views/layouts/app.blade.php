@@ -49,7 +49,25 @@
 
 {{--            </div>--}}
             <div class="col-md-2 ">
-                @yield('administration')
+                <p style="font-family: 'Lobster', cursive;
+                    text-align: center; color: white;
+                    font-size: 18px;"> Пользователь:</p>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <div class="text-center py-2">
+                        <a style="display: block" class="userLink" href="">{{Auth::user()->name}}</a>
+                        <a class="btn btn-outline-light"
+                           style="font-family: 'Lobster', cursive;"
+                           href="{{route('log_out')}}">Выйти</a>
+                    </div>
+                @else
+                    <p style="font-family: 'Lobster', cursive;
+                    text-align: center; color: white;
+                    font-size: 18px;"> Вы не авторизированы</p>
+                @endif
+
+                @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)
+                    @yield('administration')
+                @endif
             </div>
         </div>
     </div>

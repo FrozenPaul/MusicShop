@@ -54,6 +54,18 @@ ul.Sort li a {
   color: white;
 }
 
+.userLink{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-family: 'Righteous', cursive;
+}
+
+.userLink:hover{
+    text-decoration: underline;
+    color: white;
+}
+
 .bgStars {
   background: url("/images/bg6.jpg");
   background-size: cover;
