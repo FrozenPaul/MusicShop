@@ -86,27 +86,33 @@
 
 @section('content')
     <div class="col-md-8  bg-light">
-        <h1 class="text-center"> Редактирование пользователя </h1>
-        <form method="post" action="{{route('user_edit',$user->id)}}">
-            @csrf
-            <div class="form-group">
-                <input type="hidden" name="id" value="{{$user->id}}">
+        <h1 class="text-center"> Произведения </h1>
+        <div class="row" style="justify-content: space-around">
+            <a href="{{route('add_music_track')}}" class="btn btn-success my-3 text-center">Добавить новое роизведение</a>
+        </div>
+        <table class="table pt-4">
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            @if(isset($music_tracks))
+                @foreach($music_tracks as $music_track)
+                    <tr>
+                        <th scope="row">{{$music_track->id}}</th>
+                        <td><a href="{{route('single_track',$music_track->id)}}"> {{$music_track->name}}</a></td>
+                        <td><a href="{{route('edit_music_track', $music_track->id)}}" class="btn btn-info" style="color: white">Редактировать</a></td>
+                        <td><a href="{{route('delete_music_track',$music_track->id)}}" class="btn btn-danger"style="color: white">Удалить</a></td>
+                    </tr>
+                @endforeach
+            @endif
 
-                <label for="exampleInputEmail1">Имя</label>
-                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                        value="{{$user->name}}">
-
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       value="{{$user->email}}">
-            </div>
-
-            <button type="submit" class="btn btn-success">Сохранить</button>
-            <a href="{{route('user_delete',$user->id)}}" class="btn btn-danger">Удалить</a>
-            <a href="{{route('users')}}" class="btn btn-primary">Назад</a>
-        </form>
+            </tbody>
+        </table>
 
     </div>
 @endsection

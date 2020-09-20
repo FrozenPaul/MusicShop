@@ -98,10 +98,15 @@
                     <span>Композитор:</span><a href="{{route('author',\App\Author::find($music_track->author_id)->id)}}"><i> {{\App\Author::find($music_track->author_id)->name}}</i></a>
                     </br>
                     <span>Год написания:</span> {{$music_track->year}}</br>
+                    <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}}</br>
+                    <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}}</br>
 {{--                    <span>Количество страниц:</span> 6 </br>--}}
                     <span>Сложность:</span> {{$music_track->complexity}} </br>
                     <span>Рейтинг:</span> {{$music_track->rating}} </br>
-                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
+                    @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)
+                        <a href="{{{route('edit_music_track',$music_track->id)}}}" class="btn btn-info mt-3" style="color: white">Редактировать</a>
+                    @endif
+                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success text-white mt-3">Скачать</a>
 {{--                    <span>Ссылки на выдающееся исполнение:</span> </br>--}}
                 </p>
             </div>
@@ -146,7 +151,7 @@
                 <tbody>
                     @foreach($comments as $comment)
                         <tr>
-                            <th scope="row">{{$comment->id}}</th>
+                            <th scope="row"></th>
                             <td>{{\App\User::find($comment->user_id)->name}}</td>
                             <td>{{$comment->text}}</td>
                         </tr>
@@ -165,7 +170,7 @@
         </p>
         <ul style="color: white ">
             <li><a href="{{route('users')}}">Пользователи</a></li>
-            <li><a href="">Треки</a></li>
+            <li><a href="{{route('music_tracks_all')}}">Треки</a></li>
             <li><a href="{{route('authors_all')}}">Композиторы</a></li>
         </ul>
     </div>

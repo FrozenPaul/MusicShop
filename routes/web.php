@@ -69,7 +69,7 @@ Route::get('/allAuthors','AuthorController@getAllAuthorsForAdmin')
     ->name('authors_all')->middleware('admin');
 
 Route::get('/allAuthors/add','AuthorController@addAuthor')
-    ->name('add_author');
+    ->name('add_author')->middleware('admin');
 
 Route::post('/allAuthors/add', 'AuthorController@saveAuthor')
     ->name('save_author')->middleware('admin');
@@ -104,3 +104,23 @@ Route::get('/logout', 'UserController@logout')->name('log_out');
 
 Route::post('/music_tracks/{id}/addComment','Music_trackController@addComment')
     ->name('add_comment');
+
+// get all tracks for admin
+
+Route::get('/allTracks','Music_trackController@getAllTracksForAdmin')
+    ->name('music_tracks_all')->middleware('admin');
+
+Route::get('/allTracks/add', 'Music_trackController@addMusicTrack')
+    ->name('add_music_track')->middleware('admin');
+
+Route::post('/allTracks/add', 'Music_trackController@saveMusicTrack')
+    ->name('save_music_track')->middleware('admin');
+
+Route::get('/allTracks/delete/{id}', 'Music_trackController@delete')
+    ->name('delete_music_track')->middleware('admin');
+
+Route::get('/allTracks/edit/{id}', 'Music_trackController@editMusicTrack')
+    ->name('edit_music_track')->middleware('admin');
+
+Route::post('allTracks/edit/{id}/update', 'Music_trackController@updateMusicTrack')
+    ->name('update_music_track')->middleware('admin');

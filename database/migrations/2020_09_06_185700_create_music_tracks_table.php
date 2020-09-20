@@ -21,7 +21,7 @@ class CreateMusicTracksTable extends Migration
             $table->unsignedBigInteger('instrument_id');
             $table->integer('year');
             $table->string('complexity');
-            $table->double('rating');
+            $table->double('rating')->nullable();
             $table->text('description');
             $table->string('link');
             $table->string('notes_path');

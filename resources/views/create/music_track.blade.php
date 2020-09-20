@@ -85,27 +85,86 @@
 @endsection
 
 @section('content')
-    <div class="col-md-8  bg-light">
-        <h1 class="text-center"> Редактирование пользователя </h1>
-        <form method="post" action="{{route('user_edit',$user->id)}}">
+    <div class="col-md-8  bg-light p-3">
+        <h1 class="text-center"> Добавление произведения </h1>
+
+        <form method="post" action="{{route('save_music_track')}}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <input type="hidden" name="id" value="{{$user->id}}">
-
-                <label for="exampleInputEmail1">Имя</label>
-                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                        value="{{$user->name}}">
-
+                <label for="exampleInputEmail1">Название</label>
+                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp">
             </div>
+
             <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       value="{{$user->email}}">
+                <label for="exampleFormControlSelect1">Автор</label>
+                <select name="author" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($authors))
+                        @foreach($authors as $author)
+                            <option value="{{$author->id}}">{{$author->name}}</option>
+                        @endforeach
+                    @endif
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Жанр</label>
+                <select name="genre" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($genres))
+                        @foreach($genres as $genre)
+                            <option value="{{$genre->id}}">{{$genre->name}}</option>
+                        @endforeach
+                    @endif
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Инструмент</label>
+                <select name="instrument" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($instruments))
+                        @foreach($instruments as $instrument)
+                            <option value="{{$instrument->id}}">{{$instrument->name}}</option>
+                        @endforeach
+                    @endif
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Год написания</label>
+                <input name="year" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Cложность</label>
+                <input name="complexity" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Ссылка на видео с исполнением</label>
+                <input name="link" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Картинка</label>
+                <input name="picture_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Ноты</label>
+                <input name="notes_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Описание</label>
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
             </div>
 
             <button type="submit" class="btn btn-success">Сохранить</button>
-            <a href="{{route('user_delete',$user->id)}}" class="btn btn-danger">Удалить</a>
-            <a href="{{route('users')}}" class="btn btn-primary">Назад</a>
+            <a href="{{route('music_tracks_all')}}" class="btn btn-primary">Назад</a>
         </form>
 
     </div>

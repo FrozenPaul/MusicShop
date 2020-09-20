@@ -124,7 +124,7 @@
         </p>
         <ul style="color: white ">
             <li><a href="{{route('users')}}">Пользователи</a></li>
-            <li><a href="">Треки</a></li>
+            <li><a href="{{route('music_tracks_all')}}">Треки</a></li>
             <li><a href="{{route('authors_all')}}">Композиторы</a></li>
         </ul>
     </div>

@@ -86,62 +86,87 @@
 
 @section('content')
     <div class="col-md-8  bg-light p-3">
-        <h1 class="text-center"> Добавление автора </h1>
+        <h1 class="text-center"> Редактирование произведения </h1>
 
-        <form method="post" action="{{route('save_author')}}" enctype="multipart/form-data">
+        <form method="post" action="{{route('update_music_track',$music_track->id)}}" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
-                <label for="exampleInputEmail1">Имя</label>
-                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Возраст</label>
-                <input name="age" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+
+            <div class="text-center">
+                <img width="250px" src="{{asset($music_track->picture_path)}}">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Место рождения</label>
-                <input name="sity_of_birth" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Название</label>
+                <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                value="{{$music_track->name}}">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Дата рождения</label>
-                <input name="date_of_birth" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleFormControlSelect1">Автор</label>
+                <select name="author" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($authors))
+                        @foreach($authors as $author)
+                            @if($author->id == $music_track->author_id)
+                                <option selected="selected" value="{{$author->id}}">{{$author->name}}</option>
+                            @else
+                                <option value="{{$author->id}}">{{$author->name}}</option>
+                            @endif
+                        @endforeach
+                    @endif
+
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Дата смерти</label>
-                <input name="date_of_death" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleFormControlSelect1">Жанр</label>
+                <select name="genre" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($genres))
+                        @foreach($genres as $genre)
+                            @if($music_track->genre_id == $genre->id)
+                                <option selected="selected" value="{{$genre->id}}">{{$genre->name}}</option>
+                            @else
+                                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                            @endif
+                        @endforeach
+                    @endif
+
+                </select>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Место смерти</label>
-                <input name="place_of_death" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleFormControlSelect1">Инструмент</label>
+                <select name="instrument" class="form-control" id="exampleFormControlSelect1">
+                    @if(isset($instruments))
+                        @foreach($instruments as $instrument)
+                            @if($music_track->instrument_id == $instrument->id)
+                                <option selected="selected" value="{{$instrument->id}}">{{$instrument->name}}</option>
+                            @else
+                                <option value="{{$instrument->id}}">{{$instrument->name}}</option>
+                            @endif
+                        @endforeach
+                    @endif
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Год написания</label>
+                <input name="year" type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                value="{{$music_track->year}}">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Похоронен</label>
-                <input name="buried" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Cложность</label>
+                <input name="complexity" type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                value="{{$music_track->complexity}}">
             </div>
 
-            <div class="form-group">
-                <label for="exampleInputEmail1">Профессии</label>
-                <input name="jobs" type="text" class="form-control" id="name" aria-describedby="emailHelp">
-            </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Жанры</label>
-                <input name="genres" type="text" class="form-control" id="name" aria-describedby="emailHelp">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputEmail1">Инструменты</label>
-                <input name="instruments" type="text" class="form-control" id="name" aria-describedby="emailHelp">
-            </div>
-
-            <div class="form-group">
-                <label for="exampleInputEmail1">Награды</label>
-                <input name="rewards" type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                <label for="exampleInputEmail1">Ссылка на видео с исполнением</label>
+                <input name="link" type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                value="{{$music_track->link}}">
             </div>
 
             <div class="form-group">
@@ -150,12 +175,19 @@
             </div>
 
             <div class="form-group">
+                <label for="exampleFormControlFile1">Ноты</label>
+                <input name="notes_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+            </div>
+
+            <div class="form-group">
                 <label for="exampleFormControlTextarea1">Описание</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5">
+                    {{$music_track->description}}
+                </textarea>
             </div>
 
             <button type="submit" class="btn btn-success">Сохранить</button>
-            <a href="{{route('authors_all')}}" class="btn btn-primary">Назад</a>
+            <a href="{{route('music_tracks_all')}}" class="btn btn-primary">Назад</a>
         </form>
 
     </div>

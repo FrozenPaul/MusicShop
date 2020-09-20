@@ -112,7 +112,8 @@
                             <p class="card-text">
                                 <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
                                     {{\App\Author::find($music_track->author_id)->name}}
-                                </a></br>
+                                </a><br>
+                                <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}} </br>
                                 <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
 
 {{--                                <form method="get" action="{{route('download',$music_track->id)}}">--}}
@@ -140,7 +141,7 @@
         </p>
         <ul style="color: white ">
             <li><a href="{{route('users')}}">Пользователи</a></li>
-            <li><a href="">Треки</a></li>
+            <li><a href="{{route('music_tracks_all')}}">Треки</a></li>
             <li><a href="{{route('authors_all')}}">Композиторы</a></li>
         </ul>
     </div>

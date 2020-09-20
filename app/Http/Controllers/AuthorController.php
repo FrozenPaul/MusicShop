@@ -16,12 +16,20 @@ class AuthorController extends Controller
 {
 
     public function getAllAuthors(){
-        return view('authors',['authors' => Author::all()->sortBy('name')]);
+        return view('authors',[
+            'genres' => Genre::all()->sortBy('name'),
+            'instruments' => Instrument::all()->sortBy('name'),
+            'authors' => Author::all()->sortBy('name'),
+        ]);
     }
 
     public function getAuthorById($id){
 //        return Author::find('id' , $id)->name;
-        return view('author',['author' => Author::find($id)]);
+        return view('author',[
+            'genres' => Genre::all()->sortBy('name'),
+            'instruments' => Instrument::all()->sortBy('name'),
+            'author' => Author::find($id)
+        ]);
     }
 
     public function getAuthorByName(Request $req){
@@ -30,8 +38,12 @@ class AuthorController extends Controller
 //        dd(Author::all()->where('name','like',$author));
         $authors = Author::where('name','like','%'.$author.'%');
 //        if ($authors_admin != null)
-            return view('authors',['authors' => Author::where('name','like','%'.$author.'%')
-            ->orderBy('name','desc')->get()]);
+            return view('authors',[
+                'genres' => Genre::all()->sortBy('name'),
+                'instruments' => Instrument::all()->sortBy('name'),
+                'authors' => Author::where('name','like','%'.$author.'%')
+                    ->orderBy('name','desc')->get(),
+            ]);
 //        else return redirect('authors_admin');
 
     }
@@ -40,7 +52,7 @@ class AuthorController extends Controller
         return view('all_authors',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'authors' => Author::all()
+            'authors' => Author::all()->sortBy('name'),
         ]);
     }
 
