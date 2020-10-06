@@ -35,7 +35,7 @@ class Music_trackSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now(),
         ]);
 
-        for ($i = 0; $i < 10; $i++)
+        for ($i = 0; $i < 100; $i++)
         {
             DB::table('music_tracks')->insert([
                 'name' => $faker->name,

@@ -15,8 +15,7 @@
             <div id="my-nav" class="collapse navbar-collapse" style="justify-content: space-between;">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <form method="post" action="{{route('search_music')}}" class="form-inline my-2 my-lg-0 ml-4">
-                            @csrf
+                        <form method="get" action="{{route('search_music')}}" class="form-inline my-2 my-lg-0 ml-4">
                             <input name="music_name" class="form-control mr-sm-2" type="search" placeholder="Поиск"
                                    aria-label="Поиск">
                             <button class="btn btn-outline-light my-2 my-sm-1" type="submit">Поиск</button>
@@ -82,6 +81,10 @@
 
     </ul>
 
+@endsection
+
+@section('rose')
+    <img style="width: 1120px; height: 450px" src="{{ asset('images/rose1.jpg') }}" class="">
 @endsection
 
 @section('content')

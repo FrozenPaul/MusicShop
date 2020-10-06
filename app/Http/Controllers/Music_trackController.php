@@ -20,7 +20,7 @@ class Music_trackController extends Controller
             'instruments' => Instrument::all()->sortBy('name'),
             'music_track' => Music_track::find($id),
             'comments' => Message::where('music_track_id', $id)
-                ->orderBy('created_at')->get(),
+                ->orderBy('created_at','desc')->get(),
         ]);
 //        return dd(Message::where('music_track_id', $id)->orderBy('created_at')
 //            ->get());

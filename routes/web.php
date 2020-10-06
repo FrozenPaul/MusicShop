@@ -38,14 +38,14 @@ Route::get('/registration', function (){
     return view('registration');
 })->name('registration');
 
-Route::post('/authors/name','AuthorController@getAuthorByName')
+Route::post('/authors/search','AuthorController@getAuthorByName')
     ->name('findAuthor');
 
-Route::post('/search','MainController@getAllMusicByName')
-    ->name('search_music');
-
-//Route::get('/search','MainController@getAllMusicByName')
+//Route::post('/search','MainController@getAllMusicByName')
 //    ->name('search_music');
+
+Route::get('/search','MainController@getAllMusicByName')
+    ->name('search_music');
 
 Route::get('/search/genre/{genre_id}', 'MainController@getAllMusicByGenre')
     ->name('search_music_by_genre');

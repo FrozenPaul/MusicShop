@@ -15,8 +15,7 @@
                     <div id="my-nav" class="collapse navbar-collapse" style="justify-content: space-between;">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <form method="post" action="{{route('search_music')}}" class="form-inline my-2 my-lg-0 ml-4">
-                                    @csrf
+                                <form method="get" action="{{route('search_music')}}" class="form-inline my-2 my-lg-0 ml-4">
                                     <input name="music_name" class="form-control mr-sm-2" type="search" placeholder="Поиск"
                                         aria-label="Поиск">
                                     <button class="btn btn-outline-light my-2 my-sm-1" type="submit">Поиск</button>
@@ -84,54 +83,140 @@
 
 @endsection
 
-@section('content')
-    <div class="col-md-8  bg-light" style="display: flex; justify-content: space-around;">
-        <div class="form-row" style="padding: 1rem;">
-            <div class="row" style="justify-content: space-around;">
+@section('rose')
+    <div class="rose">
+        <h3 class="Writer px-3 pb-3" style="color: white; font-family: 'Lobster', cursive;">
+            Последние добавленные :
+        </h3>
 
-                @foreach($music_tracks as $music_track)
-                    <div class="card">
-                        <div class="Image">
-                            <a class="imageReference" href="{{$music_track->picture_path}}" data-fancybox="gallery">
-                                <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
-                            </a>
-                            <div class="ButtonBlock">
-                                <a href="{{route('download',$music_track->id)}}" class="downloadButton imageReference" >
-                                    <img src="/images/download-icon.png" alt="">
-                                </a>
-                                <a href="{{route('single_track', $music_track->id)}}" class="downloadButton">
-                                    <img src="/images/Eye.png " alt="">
-                                </a>
+        <div class="slider">
+            <div class="slider__wrapper">
+    {{--            {{$last_tracks[0]->id}}--}}
+                @if(isset($last_tracks))
+                    @foreach($last_tracks as $last_track)
+                        <div class="slider__item">
+                            <div class="rapid_card px-3">
+                                <div class="raw">
+                                    <img height="120px" src="{{$last_track->picture_path}}" class="" alt="...">
+                                    <a style="font-family: 'Lobster', cursive;" href="{{route('single_track', $last_track->id)}}">
+                                        <h5 class="card-title mb-0">{{$last_track->name}}</h5>
+                                    </a>
+                                    <p style="color: orange;">
+                                        <span>Дата: </span>{{$last_track->created_at->format('Y-m-d')}}
+                                    </p>
+                                </div>
+
+
                             </div>
 
                         </div>
-                        <div class="card-body">
-                            <a href="{{route('single_track', $music_track->id)}}">
-                                <h5 class="card-title">{{$music_track->name}}</h5>
-                            </a>
-                            <p class="card-text">
-                                <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
-                                    {{\App\Author::find($music_track->author_id)->name}}
-                                </a><br>
-                                <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}} </br>
-                                <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
-
-{{--                                <form method="get" action="{{route('download',$music_track->id)}}">--}}
-{{--                                    <input name="download_link" type="hidden" value="{{$music_track->notes_path}}">--}}
-{{--                                    <button type="button" class="btn btn-success mt-3">Скачать</button>--}}
-                                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
-{{--                                </form>--}}
-
-                            </p>
-                        </div>
-
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
 
             </div>
-{{--                {{$music_tracks->links()}}--}}
+            <a class="slider__control slider__control_left" href="#" role="button"></a>
+            <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+        </div>
+
+        <h3 class="p-3" style="color: white; font-family: 'Lobster', cursive;">
+            Рейтинг лучших :
+        </h3>
+
+        <div class="slider_1">
+            <div class="slider__wrapper_1">
+                {{--            {{$last_tracks[0]->id}}--}}
+                @if(isset($rating_tracks))
+                    @foreach($rating_tracks as $rating_track)
+                        <div class="slider__item_1">
+                            <div class="rapid_card px-3">
+                                <div>
+                                    <img height="120px" src="{{$rating_track->picture_path}}" class="" alt="...">
+                                    <a style="font-family: 'Lobster', cursive;" href="{{route('single_track', $rating_track->id)}}">
+                                        <h5 class="card-title mb-0">{{$rating_track->name}}</h5>
+                                    </a>
+                                    <p style="color: orange;">
+                                        <span>Рейтиг: </span>{{$rating_track->rating}}
+                                    </p>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    @endforeach
+                @endif
+
+            </div>
+            <a class="slider__control_1 slider__control_left_1" href="#" role="button"></a>
+            <a class="slider__control_1 slider__control_right_1 slider__control_show_1" href="#" role="button"></a>
         </div>
     </div>
+@endsection
+
+@section('content')
+    <div class="col-md-8  bg-light">
+        <div class="form-row pt-3" style="justify-content: center">
+            {{$music_tracks->links()}}
+        </div>
+
+        <div style="display: flex; justify-content: space-around;">
+            <div class="form-row" style="padding: 0 1rem 1rem 1rem;">
+                <div class="row" style="justify-content: space-around;">
+
+                    @foreach($music_tracks as $music_track)
+                        <div class="card">
+                            <div class="Image">
+                                <a class="imageReference" href="{{$music_track->picture_path}}" data-fancybox="gallery">
+                                    <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
+                                </a>
+                                <div class="ButtonBlock">
+                                    <a href="{{route('download',$music_track->id)}}" class="downloadButton imageReference" >
+                                        <img src="/images/download-icon.png" alt="">
+                                    </a>
+                                    <a href="{{route('single_track', $music_track->id)}}" class="downloadButton">
+                                        <img src="/images/Eye.png " alt="">
+                                    </a>
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <a href="{{route('single_track', $music_track->id)}}">
+                                    <h5 class="card-title">{{$music_track->name}}</h5>
+                                </a>
+                                <p class="card-text">
+                                    <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
+                                        {{\App\Author::find($music_track->author_id)->name}}
+                                    </a><br>
+                                    <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}} </br>
+                                    <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
+                                    <span>Рейтинг:</span> {{$music_track->rating}} </br>
+
+    {{--                                <form method="get" action="{{route('download',$music_track->id)}}">--}}
+    {{--                                    <input name="download_link" type="hidden" value="{{$music_track->notes_path}}">--}}
+    {{--                                    <button type="button" class="btn btn-success mt-3">Скачать</button>--}}
+                                        <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
+    {{--                                @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)--}}
+    {{--                                    <a href="{{{route('edit_music_track',$music_track->id)}}}" class="btn btn-info mt-3" style="color: white">Редактировать</a>--}}
+    {{--                                @endif--}}
+    {{--                                </form>--}}
+
+                                </p>
+                            </div>
+
+                        </div>
+                    @endforeach
+    {{--                    {{$music_tracks->links()}}--}}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row" style="justify-content: center">
+            {{$music_tracks->links()}}
+        </div>
+
+
+    </div>
+
 @endsection
 
 @section('administration')
