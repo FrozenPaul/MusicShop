@@ -92,14 +92,17 @@
         <div style="display: block">
             <h1 class="text-center py-3">Композиторы</h1>
 
-            <form method="post" class="form-inline my-2 my-lg-0 ml-4" action="{{route('findAuthor')}}">
-                @csrf
-                <input name="author_name" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск">
+            <form method="get" class="form-inline my-2 my-lg-0 ml-4" action="{{route('find_author')}}">
+{{--                @csrf--}}
+                <input name="author_name" class="form-control mr-sm-2" type="search" placeholder="Поиск" aria-label="Поиск"
+                value="{{isset($author_name_full) ? $author_name_full: ''}}">
                 <button class="btn btn-outline-dark my-2 my-sm-1" type="submit">Поиск</button>
             </form>
-            <h2 class="py-3">Список композиторов:</h2>
+            <a style="color: #212529" href="{{route('authors')}}">
+                <h2 class="py-3">Список композиторов:</h2>
+            </a>
 
-            <ul class="Composers">
+            <ul class="Composers" style="list-style-type: circle;">
                 @if(count($authors))
 
                     @foreach ($authors as $author)
@@ -108,7 +111,12 @@
                 @else
                     <li>По вашему запросу ничего не найдено</li>
                 @endif
+
             </ul>
+            <div class="form-row" style="justify-content: center">
+                {{$authors->links()}}
+            </div>
+
         </div>
     </div>
 

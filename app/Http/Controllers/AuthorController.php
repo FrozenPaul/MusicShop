@@ -19,7 +19,7 @@ class AuthorController extends Controller
         return view('authors',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'authors' => Author::all()->sortBy('name'),
+            'authors' => Author::orderBy('name')->paginate(20),
         ]);
     }
 
@@ -42,7 +42,8 @@ class AuthorController extends Controller
                 'genres' => Genre::all()->sortBy('name'),
                 'instruments' => Instrument::all()->sortBy('name'),
                 'authors' => Author::where('name','like','%'.$author.'%')
-                    ->orderBy('name','desc')->get(),
+                    ->orderBy('name','desc')->paginate(20),
+                'author_name_full' => $author,
             ]);
 //        else return redirect('authors_admin');
 
@@ -52,7 +53,7 @@ class AuthorController extends Controller
         return view('all_authors',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'authors' => Author::all()->sortBy('name'),
+            'authors' => Author::orderBy('name')->paginate(10),
         ]);
     }
 
@@ -125,4 +126,11 @@ class AuthorController extends Controller
         return redirect()->route('authors_all');
     }
 
+
+//    public function getAuthorByFullName(Request $req){
+//
+//        return 'hello Paul';
+//
+//
+//    }
 }

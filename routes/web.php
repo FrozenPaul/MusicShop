@@ -38,8 +38,11 @@ Route::get('/registration', function (){
     return view('registration');
 })->name('registration');
 
-Route::post('/authors/search','AuthorController@getAuthorByName')
-    ->name('findAuthor');
+//Route::post('/authors/search','AuthorController@getAuthorByName')
+//    ->name('findAuthor');
+
+Route::get('/authors/search/name','AuthorController@getAuthorByName')
+    ->name('find_author');
 
 //Route::post('/search','MainController@getAllMusicByName')
 //    ->name('search_music');
@@ -124,3 +127,10 @@ Route::get('/allTracks/edit/{id}', 'Music_trackController@editMusicTrack')
 
 Route::post('allTracks/edit/{id}/update', 'Music_trackController@updateMusicTrack')
     ->name('update_music_track')->middleware('admin');
+
+// rating
+
+Route::post('/rating','RatingController@saveRating')->name('save_rating');
+
+Route::get('/rating/user', 'RatingController@test');
+

@@ -116,6 +116,9 @@
 
             </tbody>
         </table>
+        <div class="form-row" style="justify-content: center">
+            {{$music_tracks->links()}}
+        </div>
 
     </div>
 @endsection

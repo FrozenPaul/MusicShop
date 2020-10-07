@@ -96,7 +96,7 @@
                 </a>
             </div>
             <div class="col-md">
-                <p class="Composer">
+                <div class="Composer">
                     <span>Название произведения:</span> {{$music_track->name}} </br>
                     <span>Композитор:</span><a href="{{route('author',\App\Author::find($music_track->author_id)->id)}}"><i> {{\App\Author::find($music_track->author_id)->name}}</i></a>
                     </br>
@@ -105,13 +105,44 @@
                     <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}}</br>
 {{--                    <span>Количество страниц:</span> 6 </br>--}}
                     <span>Сложность:</span> {{$music_track->complexity}} </br>
-                    <span>Рейтинг:</span> {{$music_track->rating}} </br>
-                    @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)
-                        <a href="{{{route('edit_music_track',$music_track->id)}}}" class="btn btn-info mt-3" style="color: white">Редактировать</a>
+                    <span>Глобальный рейтинг:</span> {{$music_track->rating}} </br>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        <div class="Composer">
+                            <span>Ваш рейтинг:</span>
+                        </div>
+
+                        <div class="stars raw">
+                            <form method="post" id="addStar" action="{{route('save_rating')}}">
+                                @csrf
+                                <input name="music_track_id" type="hidden" value="{{$music_track->id}}">
+                                <input class="star star-5" id="star-5" type="radio" name="star" value="5"
+                                    {{isset($rating) && $rating->rating == 5 ? 'checked': ''}}/>
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" name="star" value="4"
+                                    {{isset($rating) && $rating->rating == 4 ? 'checked': ''}}/>
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" name="star" value="3"
+                                    {{isset($rating) && $rating->rating == 3 ? 'checked': ''}}/>
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" name="star" value="2"
+                                    {{isset($rating) && $rating->rating == 2 ? 'checked': ''}}/>
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" name="star" value="1"
+                                    {{isset($rating) && $rating->rating == 1 ? 'checked': ''}}/>
+                                <label class="star star-1" for="star-1"></label>
+                                {{--                        <input type="submit" class="btn btn-success" value="Отправить">--}}
+                            </form>
+                        </div>
                     @endif
-                    <a href="{{route('download',$music_track->id)}}" class="btn btn-success text-white mt-3">Скачать</a>
-{{--                    <span>Ссылки на выдающееся исполнение:</span> </br>--}}
-                </p>
+
+                    <div class="">
+                        @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->is_admin == 1)
+                            <a href="{{{route('edit_music_track',$music_track->id)}}}" class="btn btn-info " style="color: white">Редактировать</a>
+                        @endif
+                        <a href="{{route('download',$music_track->id)}}" class="btn btn-success text-white ">Скачать</a>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -177,4 +208,26 @@
             <li><a href="{{route('authors_all')}}">Композиторы</a></li>
         </ul>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#addStar').change('.star', function(e) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                cache: false,
+                dataType: 'JSON',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    </script>
 @endsection

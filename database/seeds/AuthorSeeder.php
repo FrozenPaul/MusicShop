@@ -11,6 +11,8 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
+
         DB::table('authors')->insert([
             'name' => 'Сергей Васильевич Рахманинов',
             'age'=> 69,
@@ -157,6 +159,26 @@ class AuthorSeeder extends Seeder
 
 4 августа 1990 года перенёс сильный инсульт, скончался в Буэнос-Айресе 4 июля 1992 года в результате его последствий. Похоронен на кладбище Jardín de Paz в городке Пилар, являющимся частью большого Буэнос-Айреса.',
         ]);
+
+        for($i = 0; $i < 20; $i++){
+            DB::table('authors')->insert([
+                'name' => $faker->name,
+                'age'=> $faker->numberBetween(30, 80),
+                'sity_of_birth' => $faker->city,
+                'date_of_birth'=> $faker->date('d-m-Y'),
+                'date_of_death' => $faker->dateTimeBetween('-100 years', 'now'),
+                'place_of_death' =>  $faker->city,
+                'buried' => 'кладбище'.' '.$faker->word,
+                'jobs' => $faker->jobTitle,
+                'instruments' => $faker->word,
+                'genres' => $faker->word,
+                'rewards' => $faker->sentence,
+                'picture_path' => $faker->imageUrl(250, 300),
+                'created_at' => \Carbon\Carbon::now(),
+
+                'description' => $faker->text,
+            ]);
+        }
 
     }
 }

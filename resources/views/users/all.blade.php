@@ -115,6 +115,9 @@
 
             </tbody>
         </table>
+        <div class="form-row" style="justify-content: center">
+            {{$users->links()}}
+        </div>
 
     </div>
 @endsection

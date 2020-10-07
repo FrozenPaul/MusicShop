@@ -12,8 +12,8 @@ class MainController extends Controller
 
     public function main(){
         $music_tracks =  Music_track::all();
-        $last_tracks = $music_tracks->sortByDesc('created_at')->slice(0,7);
-        $rating_tracks = $music_tracks->sortByDesc('rating')->slice(0,7);
+        $last_tracks = $music_tracks->sortByDesc('created_at')->slice(0,10);
+        $rating_tracks = $music_tracks->sortByDesc('rating')->slice(0,10);
 
         return view('main',[
             'genres' => Genre::all()->sortBy('name'),
@@ -46,7 +46,9 @@ class MainController extends Controller
         $track = $req->input('music_name');
         $music_tracks = Music_track::where('name','like','%'.$track.'%')
             ->orderBy('name')->paginate(6);
+
         $music_tracks->appends(['music_name' => $track]);
+
         return view('main', [
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),

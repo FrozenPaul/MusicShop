@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function showUsers(){
-        $users = User::all();
+        $users = User::orderBy('id')->paginate(10);
         return view('users.all',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),

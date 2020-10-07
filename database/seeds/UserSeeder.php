@@ -12,6 +12,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
+
         DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
@@ -33,5 +35,15 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'created_at'=> Carbon::now(),
         ]);
+
+        for ($i = 0; $i < 20; $i++){
+            DB::table('users')->insert([
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'is_admin'=> 0,
+                'password' => Hash::make('password'),
+                'created_at'=> Carbon::now(),
+            ]);
+        }
     }
 }

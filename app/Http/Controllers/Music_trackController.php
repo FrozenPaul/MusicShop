@@ -7,23 +7,32 @@ use App\Genre;
 use App\Instrument;
 use App\Message;
 use App\Music_track;
+use App\Rating;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Music_trackController extends Controller
 {
     function getSingleTrack($id){
+        $rating = Rating::where([
+            ['user_id', Auth::id()],
+            ['music_track_id', $id]
+        ])->first();
+
+        $music_track = Music_track::find($id);
+
         return view('music_track.single_track',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'music_track' => Music_track::find($id),
+            'music_track' => $music_track,
             'comments' => Message::where('music_track_id', $id)
                 ->orderBy('created_at','desc')->get(),
+            'rating' => $rating,
         ]);
-//        return dd(Message::where('music_track_id', $id)->orderBy('created_at')
-//            ->get());
+
     }
 
     function download($id){
@@ -48,7 +57,7 @@ class Music_trackController extends Controller
         return view('music_track.all',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'music_tracks' => Music_track::all(),
+            'music_tracks' => Music_track::orderBy('id')->paginate(10),
         ]);
 
     }
