@@ -24,7 +24,6 @@ class AuthorController extends Controller
     }
 
     public function getAuthorById($id){
-//        return Author::find('id' , $id)->name;
         return view('author',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
@@ -35,9 +34,6 @@ class AuthorController extends Controller
     public function getAuthorByName(Request $req){
 
         $author = $req->input('author_name');
-//        dd(Author::all()->where('name','like',$author));
-        $authors = Author::where('name','like','%'.$author.'%');
-//        if ($authors_admin != null)
             return view('authors',[
                 'genres' => Genre::all()->sortBy('name'),
                 'instruments' => Instrument::all()->sortBy('name'),
@@ -45,7 +41,6 @@ class AuthorController extends Controller
                     ->orderBy('name','desc')->paginate(20),
                 'author_name_full' => $author,
             ]);
-//        else return redirect('authors_admin');
 
     }
 
@@ -59,10 +54,24 @@ class AuthorController extends Controller
 
     public function addAuthor(){
         return view('create.author');
-//        return redirect()->route('authors_all');
     }
 
     public function saveAuthor(Request $req){
+        $req->validate([
+            'name' => 'required',
+            'age' => 'required',
+            'sity_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'date_of_death' => 'required',
+            'place_of_death' => 'required',
+            'buried' => 'required',
+            'jobs' => 'required',
+            'genres' => 'required',
+            'instruments' => 'required',
+            'rewards' => 'required',
+            'picture_path' => 'required|image|mimes:jpeg,jpg,png,gif',
+        ]);
+
         $author = new Author();
         $author->name = $req->input('name');
         $author->age = $req->input('age');
@@ -101,6 +110,21 @@ class AuthorController extends Controller
     }
 
     public function updateAuthor(Request $req, $id){
+        $req->validate([
+            'name' => 'required',
+            'age' => 'required',
+            'sity_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'date_of_death' => 'required',
+            'place_of_death' => 'required',
+            'buried' => 'required',
+            'jobs' => 'required',
+            'genres' => 'required',
+            'instruments' => 'required',
+            'rewards' => 'required',
+            'picture_path' => 'image|mimes:jpeg,jpg,png,gif',
+        ]);
+
         $author = Author::find($id);
         $author->name = $req->input('name');
         $author->age = $req->input('age');
@@ -126,11 +150,4 @@ class AuthorController extends Controller
         return redirect()->route('authors_all');
     }
 
-
-//    public function getAuthorByFullName(Request $req){
-//
-//        return 'hello Paul';
-//
-//
-//    }
 }

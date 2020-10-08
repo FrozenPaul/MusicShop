@@ -43,23 +43,10 @@
 @endsection
 
 @section('sidebar')
-    <ul class="Sort">
-        <p>Сортировка:</p>
-        <li>
-            <a href="#">Дата загрузки</a>
-        </li>
-        <li>
-            <a href="#">Количество комментариев</a>
-        </li>
-        <li>
-            <a href="#">Пользовательский рейтинг</a>
-        </li>
-
-    </ul>
 
     <ul class="Sort">
         <p>
-            Сортировка по жанру:
+            Сортировка <br> по жанру:
         </p>
         @if(isset($genres))
             @foreach($genres as $genre)
@@ -91,6 +78,16 @@
     <div class="col-md-8  bg-light p-3">
         <h1 class="text-center"> Редактирование произведения </h1>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="post" action="{{route('update_music_track',$music_track->id)}}" enctype="multipart/form-data">
             @csrf
 
@@ -101,7 +98,7 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Название</label>
                 <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$music_track->name}}">
+                value="{{$music_track->name}}" required>
             </div>
 
             <div class="form-group">
@@ -154,37 +151,44 @@
 
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Год написания</label>
-                <input name="year" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$music_track->year}}">
+                <label for="exampleInputEmail1">Год написания (4 цифры)</label>
+                <input name="year" type="text" class="form-control" id="name" aria-describedby="emailHelp "
+                value="{{$music_track->year}}"  required pattern="[1-9]{1}[0-9]{3}">
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Cложность</label>
                 <input name="complexity" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$music_track->complexity}}">
+                value="{{$music_track->complexity}}" required>
             </div>
 
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Ссылка на видео с исполнением</label>
                 <input name="link" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$music_track->link}}">
+                value="{{$music_track->link}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlFile1">Картинка</label>
-                <input name="picture_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+                <input name="picture_path" type="file" class="form-control-file" id="picture_path"
+                accept="image/jpeg">
+                @error('picture_path')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlFile1">Ноты</label>
-                <input name="notes_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+                <input name="notes_path" type="file" class="form-control-file" id="notes_path" accept="application/pdf">
+                @error('notes_path')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Описание</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5">
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5" required>
                     {{$music_track->description}}
                 </textarea>
             </div>

@@ -24,13 +24,4 @@ class RatingController extends Controller
         $rating->rating = $req->input('star');
         $rating->save();
     }
-
-    public function test(){
-        $rating = Rating::where('user_id', Auth::id())->first()->exists();
-//        foreach ($rating as $rate){
-//            $rate->delete();
-//        }
-        return $rating;
-//        return 'ok';
-    }
 }

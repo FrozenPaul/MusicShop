@@ -43,23 +43,10 @@
 @endsection
 
 @section('sidebar')
-    <ul class="Sort">
-        <p>Сортировка:</p>
-        <li>
-            <a href="#">Дата загрузки</a>
-        </li>
-        <li>
-            <a href="#">Количество комментариев</a>
-        </li>
-        <li>
-            <a href="#">Пользовательский рейтинг</a>
-        </li>
-
-    </ul>
 
     <ul class="Sort">
         <p>
-            Сортировка по жанру:
+            Сортировка <br> по жанру:
         </p>
         @if(isset($genres))
             @foreach($genres as $genre)
@@ -91,6 +78,16 @@
     <div class="col-md-8  bg-light p-3">
         <h1 class="text-center"> Редактирование автора </h1>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="post" action="{{route('update_author',$author->id)}}" enctype="multipart/form-data">
             @csrf
 
@@ -100,76 +97,80 @@
             <div class="form-group">
                 <label for="exampleInputEmail1">Имя</label>
                 <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->name}}">
+                value="{{$author->name}}" required>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">Возраст</label>
                 <input name="age" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->age}}">
+                value="{{$author->age}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Место рождения</label>
                 <input name="sity_of_birth" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->sity_of_birth}}">
+                value="{{$author->sity_of_birth}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Дата рождения</label>
                 <input name="date_of_birth" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->date_of_birth}}">
+                value="{{$author->date_of_birth}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Дата смерти</label>
                 <input name="date_of_death" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->date_of_death}}">
+                value="{{$author->date_of_death}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Место смерти</label>
                 <input name="place_of_death" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->place_of_death}}">
+                value="{{$author->place_of_death}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Похоронен</label>
                 <input name="buried" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->buried}}">
+                value="{{$author->buried}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Профессии</label>
                 <input name="jobs" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->jobs}}">
+                value="{{$author->jobs}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Жанры</label>
                 <input name="genres" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->genres}}">
+                value="{{$author->genres}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Инструменты</label>
                 <input name="instruments" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->instruments}}">
+                value="{{$author->instruments}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputEmail1">Награды</label>
                 <input name="rewards" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                value="{{$author->rewards}}">
+                value="{{$author->rewards}}" required>
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlFile1">Картинка</label>
-                <input name="picture_path" type="file" class="form-control-file" id="exampleFormControlFile1">
+                <input name="picture_path" type="file" class="form-control-file" id="exampleFormControlFile1"
+                       accept="image/jpeg">
+                @error('picture_path')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Описание</label>
-                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5">
+                <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="5" required>
                     {{$author->description}}
                 </textarea>
 

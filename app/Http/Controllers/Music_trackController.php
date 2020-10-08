@@ -57,7 +57,7 @@ class Music_trackController extends Controller
         return view('music_track.all',[
             'genres' => Genre::all()->sortBy('name'),
             'instruments' => Instrument::all()->sortBy('name'),
-            'music_tracks' => Music_track::orderBy('id')->paginate(10),
+            'music_tracks' => Music_track::orderBy('name')->paginate(10),
         ]);
 
     }
@@ -71,6 +71,20 @@ class Music_trackController extends Controller
     }
 
     function saveMusicTrack(Request $req){
+        $req->validate([
+            'name' => 'required',
+            'author' => 'required',
+            'genre' => 'required',
+            'instrument' => 'required',
+            'year' => 'required',
+            'complexity' => 'required',
+            'link' => 'required',
+            'description' => 'required',
+            'picture_path' => 'required|image|mimes:jpeg,jpg,png,gif',
+            'notes_path' => 'required|mimes:pdf',
+
+        ]);
+
         $track = new Music_track();
         $track->name = $req->input('name');
         $track->author_id = $req->author;
@@ -111,6 +125,19 @@ class Music_trackController extends Controller
     }
 
     public function updateMusicTrack(Request $req, $id){
+        $req->validate([
+            'name' => 'required',
+            'author' => 'required',
+            'genre' => 'required',
+            'instrument' => 'required',
+            'year' => 'required',
+            'complexity' => 'required',
+            'link' => 'required',
+            'description' => 'required',
+            'picture_path' => 'image|mimes:jpeg,jpg,png,gif',
+            'notes_path' => 'mimes:pdf',
+
+        ]);
         $track = Music_track::find($id);
         $track->name = $req->input('name');
         $track->author_id = $req->author;

@@ -130,7 +130,6 @@ Route::post('allTracks/edit/{id}/update', 'Music_trackController@updateMusicTrac
 
 // rating
 
-Route::post('/rating','RatingController@saveRating')->name('save_rating');
+Route::post('/rating','RatingController@saveRating')->name('save_rating')->middleware('auth');
 
-Route::get('/rating/user', 'RatingController@test');
 

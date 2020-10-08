@@ -43,23 +43,10 @@
 @endsection
 
 @section('sidebar')
-    <ul class="Sort">
-        <p>Сортировка:</p>
-        <li>
-            <a href="#">Дата загрузки</a>
-        </li>
-        <li>
-            <a href="#">Количество комментариев</a>
-        </li>
-        <li>
-            <a href="#">Пользовательский рейтинг</a>
-        </li>
-
-    </ul>
 
     <ul class="Sort">
         <p>
-            Сортировка по жанру:
+            Сортировка <br> по жанру:
         </p>
         @if(isset($genres))
             @foreach($genres as $genre)

@@ -42,54 +42,12 @@
     </div>
 @endsection
 
-@section('sidebar')
-    <ul class="Sort">
-        <p>Сортировка:</p>
-        <li>
-            <a href="#">Дата загрузки</a>
-        </li>
-        <li>
-            <a href="#">Количество комментариев</a>
-        </li>
-        <li>
-            <a href="#">Пользовательский рейтинг</a>
-        </li>
-
-    </ul>
-
-    <ul class="Sort">
-        <p>
-            Сортировка по жанру:
-        </p>
-        @if(isset($genres))
-            @foreach($genres as $genre)
-                <li><a href="{{route('search_music_by_genre',$genre->id)}}">{{$genre->name}}</a></li>
-            @endforeach
-        @endif
-
-    </ul>
-
-    <ul class="Sort">
-        <p>
-            Сортировка по инструменту:
-        </p>
-        @if(isset($instruments))
-            @foreach($instruments as $instrument)
-                <li><a href="{{route('search_music_by_instrument', $instrument->id)}}">{{$instrument->name}}</a></li>
-            @endforeach
-        @endif
-
-    </ul>
-
-@endsection
-
 @section('rose')
     <img style="width: 1120px; height: 450px" src="{{ asset('images/rose1.jpg') }}" class="">
 @endsection
 
 @section('content')
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
+
         <div class="col-md-8">
             <div class="card w-100">
                 <h2 class="card-header text-center">{{ __('Регистрация') }}</h2>
@@ -160,6 +118,5 @@
                 </div>
             </div>
         </div>
-{{--    </div>--}}
-{{--</div>--}}
+
 @endsection
