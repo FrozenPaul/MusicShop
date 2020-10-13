@@ -142,6 +142,11 @@
 
 @section('content')
     <div class="col-md-8  bg-light">
+
+        @if(isset($search_tag))
+            <h2 style="font-family: 'Lobster', cursive;">{{$search_tag}}</h2>
+        @endif
+
         <div class="form-row pt-3" style="justify-content: center">
             {{$music_tracks->links()}}
         </div>
@@ -150,42 +155,47 @@
             <div class="form-row" style="padding: 0 1rem 1rem 1rem;">
                 <div class="row" style="justify-content: space-around;">
 
-                    @foreach($music_tracks as $music_track)
-                        <div class="card">
-                            <div class="Image">
-                                <a class="imageReference" href="{{$music_track->picture_path}}" data-fancybox="gallery">
-                                    <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
-                                </a>
-                                <div class="ButtonBlock">
-                                    <a href="{{route('download',$music_track->id)}}" class="downloadButton imageReference" >
-                                        <img src="/images/download-icon.png" alt="">
+                    @if(isset($music_tracks) && count($music_tracks) > 0)
+                        @foreach($music_tracks as $music_track)
+                            <div class="card">
+                                <div class="Image">
+                                    <a class="imageReference" href="{{$music_track->picture_path}}" data-fancybox="gallery">
+                                        <img src="{{$music_track->picture_path}}" class="img-fluid" alt="...">
                                     </a>
-                                    <a href="{{route('single_track', $music_track->id)}}" class="downloadButton">
-                                        <img src="/images/Eye.png " alt="">
+                                    <div class="ButtonBlock">
+                                        <a href="{{route('download',$music_track->id)}}" class="downloadButton imageReference" >
+                                            <img src="/images/download-icon.png" alt="">
+                                        </a>
+                                        <a href="{{route('single_track', $music_track->id)}}" class="downloadButton">
+                                            <img src="/images/Eye.png " alt="">
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="card-body">
+                                    <a href="{{route('single_track', $music_track->id)}}">
+                                        <h5 class="card-title">{{$music_track->name}}</h5>
                                     </a>
+                                    <p class="card-text">
+                                        <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
+                                            {{\App\Author::find($music_track->author_id)->name}}
+                                        </a><br>
+                                        <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}} </br>
+                                        <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
+                                        <span>Рейтинг:</span> {{$music_track->rating}} </br>
+
+                                            <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
+
+
+                                    </p>
                                 </div>
 
                             </div>
-                            <div class="card-body">
-                                <a href="{{route('single_track', $music_track->id)}}">
-                                    <h5 class="card-title">{{$music_track->name}}</h5>
-                                </a>
-                                <p class="card-text">
-                                    <span>Автор:</span> <a href="{{route('author',$music_track->author_id)}}">
-                                        {{\App\Author::find($music_track->author_id)->name}}
-                                    </a><br>
-                                    <span>Жанр:</span> {{\App\Genre::find($music_track->genre_id)->name}} </br>
-                                    <span>Инструмент:</span> {{\App\Instrument::find($music_track->instrument_id)->name}} </br>
-                                    <span>Рейтинг:</span> {{$music_track->rating}} </br>
+                        @endforeach
+                    @else
+                        <h2 style="font-family: 'Lobster', cursive;">Ничего не найдено</h2>
+                    @endif
 
-                                        <a href="{{route('download',$music_track->id)}}" class="btn btn-success mt-3 text-white">Скачать</a>
-
-
-                                </p>
-                            </div>
-
-                        </div>
-                    @endforeach
                 </div>
             </div>
         </div>

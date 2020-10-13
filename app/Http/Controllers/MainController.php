@@ -36,6 +36,7 @@ class MainController extends Controller
                 ->orderBy('name')->paginate(6),
             'last_tracks' => $last_tracks,
             'rating_tracks' => $rating_tracks,
+            'search_tag' => 'Результаты поиска по жанру: "'.Genre::find($id)->name.'"',
         ]);
     }
 
@@ -57,6 +58,7 @@ class MainController extends Controller
             'last_tracks' => $last_tracks,
             'rating_tracks' => $rating_tracks,
             'music_tracks' => $music_tracks,
+            'search_tag' => 'Результаты поиска по названию: "'.$track.'"',
         ]);
     }
 
@@ -71,6 +73,7 @@ class MainController extends Controller
                 ->orderBy('name')->paginate(6),
             'last_tracks' => $last_tracks,
             'rating_tracks' => $rating_tracks,
+            'search_tag' => 'Результаты поиска по инструменту: "'.Instrument::find($id)->name.'"',
         ]);
     }
 
